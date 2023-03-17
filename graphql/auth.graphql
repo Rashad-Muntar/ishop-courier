@@ -1,0 +1,16 @@
+mutation ShopperLogin($email: String!, $password: String!) {
+  shopperLogin(email: $email, password: $password) {
+    shopper {
+      id
+      avatar
+      email
+      password
+      firstName
+      lastName
+      deliveryOption
+      location
+      phone
+    }
+    token
+  }
+}
