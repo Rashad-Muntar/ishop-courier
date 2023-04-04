@@ -4,6 +4,7 @@ import Login from '../screens/auth/Login'
 import GoOnline from '../screens/goOnline'
 import CustomDrawer from '../components/menu/CustomDrawer'
 import { MenuDrawer } from './Drawer'
+import Startorder from '../screens/orderProcess/Startorder'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 
 const Drawer = createDrawerNavigator()
@@ -45,6 +46,11 @@ const MainNavigation = () => {
         options={{ headerShown: false }}
         name="Go-online"
         component={GoOnline}
+      />
+        <Drawer.Screen
+        options={{ headerShown: false }}
+        name="start-order"
+        component={Startorder}
       />
     </Drawer.Navigator>
   )

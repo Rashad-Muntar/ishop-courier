@@ -310,6 +310,7 @@ export const createOrder = /* GraphQL */ `
       isPicked
       isDelivered
       onGoing
+      isAccepted
       shopperId
       orderNote
       shopper {
@@ -397,6 +398,7 @@ export const updateOrder = /* GraphQL */ `
       isPicked
       isDelivered
       onGoing
+      isAccepted
       shopperId
       orderNote
       shopper {
@@ -484,6 +486,7 @@ export const deleteOrder = /* GraphQL */ `
       isPicked
       isDelivered
       onGoing
+      isAccepted
       shopperId
       orderNote
       shopper {
@@ -1130,6 +1133,7 @@ export const createProductOrder = /* GraphQL */ `
         isPicked
         isDelivered
         onGoing
+        isAccepted
         shopperId
         orderNote
         createdAt
@@ -1188,6 +1192,7 @@ export const updateProductOrder = /* GraphQL */ `
         isPicked
         isDelivered
         onGoing
+        isAccepted
         shopperId
         orderNote
         createdAt
@@ -1246,6 +1251,7 @@ export const deleteProductOrder = /* GraphQL */ `
         isPicked
         isDelivered
         onGoing
+        isAccepted
         shopperId
         orderNote
         createdAt

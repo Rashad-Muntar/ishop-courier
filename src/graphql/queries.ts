@@ -88,6 +88,7 @@ export const getOrder = /* GraphQL */ `
       isPicked
       isDelivered
       onGoing
+      isAccepted
       shopperId
       orderNote
       shopper {
@@ -177,6 +178,7 @@ export const listOrders = /* GraphQL */ `
         isPicked
         isDelivered
         onGoing
+        isAccepted
         shopperId
         orderNote
         createdAt
@@ -217,6 +219,7 @@ export const syncOrders = /* GraphQL */ `
         isPicked
         isDelivered
         onGoing
+        isAccepted
         shopperId
         orderNote
         createdAt
@@ -742,6 +745,7 @@ export const getProductOrder = /* GraphQL */ `
         isPicked
         isDelivered
         onGoing
+        isAccepted
         shopperId
         orderNote
         createdAt

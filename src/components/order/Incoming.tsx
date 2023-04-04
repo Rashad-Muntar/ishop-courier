@@ -6,8 +6,30 @@ import { LinearProgress } from '@rneui/themed'
 import FindDriverProgress from '../shared/FindProgress'
 
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
+import { color } from '@rneui/base'
+import DeliveryInfo from './deliveryInfo'
+import StoreInfo from './StoreInfo'
 
-const IncomingOrder = () => {
+interface Props {
+  onReject?: () => void
+  onAccept?: () => void
+  distance?: string
+  deliveryFee?: String
+  storeName?: string
+  storeAddress?: string
+  shoppingFee?: string
+  products?: string
+}
+const IncomingOrder = ({
+  onReject,
+  onAccept,
+  distance,
+  deliveryFee,
+  shoppingFee,
+  storeName,
+  storeAddress,
+  products,
+}: Props) => {
   return (
     // <SafeAreaView style={{flex: 1}}>
     <View style={styles.container}>
@@ -20,16 +42,17 @@ const IncomingOrder = () => {
               placeholder="Reject"
               fontSize={15}
               textColor={Colors.light.textPrimaryBlack}
+              onPress={onReject}
             />
           </View>
           <AnimatedCircularProgress
             size={150}
             width={15}
             fill={102}
-            duration={60000}
-            tintColor={Colors.light.primary}
+            duration={90000}
+            tintColor={Colors.light.primaryRed100}
             onAnimationComplete={() => console.log('onAnimationComplete')}
-            backgroundColor={Colors.light.primary100}
+            backgroundColor={Colors.light.primary50}
           />
           <View style={styles.newOrderAlert}>
             <Text style={styles.newOrderHead}>You have a new order!</Text>
@@ -37,14 +60,17 @@ const IncomingOrder = () => {
               You can accept it before the time lapses
             </Text>
           </View>
+          <DeliveryInfo />
+          <StoreInfo storeName={storeName} storeAddress={storeAddress} />
         </View>
-        <View style={styles.acceptBtnWrap}>
+        <View>
           <Button
             height={50}
             bg={Colors.light.primary}
             placeholder="Accept order"
             fontSize={18}
             textColor="white"
+            onPress={onAccept}
           />
         </View>
       </View>
@@ -73,8 +99,8 @@ const styles = StyleSheet.create({
   },
   btnWrap: {
     width: '35%',
-      alignSelf: 'flex-end',
-    marginBottom: 20
+    alignSelf: 'flex-end',
+    marginBottom: 20,
   },
 
   content: {
@@ -95,7 +121,6 @@ const styles = StyleSheet.create({
     color: Colors.light.whiteText,
     fontSize: 11,
   },
-  acceptBtnWrap: {},
 })
 
 export default IncomingOrder

@@ -92,6 +92,7 @@ export const onCreateOrder = /* GraphQL */ `
       isPicked
       isDelivered
       onGoing
+      isAccepted
       shopperId
       orderNote
       shopper {
@@ -109,21 +110,11 @@ export const onCreateOrder = /* GraphQL */ `
         longitude
       }
       store {
-        id
-        email
-        password
         storeName
         address
         latitude
         longitude
         phone
-        outletType
-        branches
-        headerImg
-        logo
-        verified
-
-        categoryStoresId
       }
       client {
         id
@@ -157,6 +148,7 @@ export const onUpdateOrder = /* GraphQL */ `
       isPicked
       isDelivered
       onGoing
+      isAccepted
       shopperId
       orderNote
       shopper {
@@ -241,6 +233,7 @@ export const onDeleteOrder = /* GraphQL */ `
       isPicked
       isDelivered
       onGoing
+      isAccepted
       shopperId
       orderNote
       shopper {
@@ -847,6 +840,7 @@ export const onCreateProductOrder = /* GraphQL */ `
         isPicked
         isDelivered
         onGoing
+        isAccepted
         shopperId
         orderNote
         createdAt
@@ -904,6 +898,7 @@ export const onUpdateProductOrder = /* GraphQL */ `
         isPicked
         isDelivered
         onGoing
+        isAccepted
         shopperId
         orderNote
         createdAt
@@ -961,6 +956,7 @@ export const onDeleteProductOrder = /* GraphQL */ `
         isPicked
         isDelivered
         onGoing
+        isAccepted
         shopperId
         orderNote
         createdAt

@@ -61,42 +61,35 @@ function GoOnline() {
       console.log(error.message)
     }
   }
-console.log(isUser.userId)
+  console.log(isUser.userId)
   const activateOrder = () => {
-    const variables = {
-      filter: {
-        shopperId: {
-          eq:  "9b32b0ec-3319-455b-bb08-09e31d3c49cb"
-        }
-      }
-    }
-    subs = API.graphql(graphqlOperation(onCreateOrder,
-      // {
-      // filter: {
-      //   shopperId: {
-      //     eq:  "9b32b0ec-3319-455b-bb08-09e31d3c49cb"
-      //   }
-      // }
-      // }
-    )).subscribe({
-      next: ({ provider, value }) => console.log(value),
+    subs = API.graphql(
+      graphqlOperation(onCreateOrder, {
+        filter: {
+          shopperId: {
+            eq: isUser.userId,
+          },
+        },
+      })
+    ).subscribe({
+      next: ({ provider, value }) => setIncommingOrderChange(value.data.onCreateOrder),
       error: (error) => console.warn(error),
-      // next: (payload: any) => {
-
-      //   // const createdTodo = payload.data?.onCreateOrder
-      //   // setIncommingOrderChange(createdTodo)
-      //   // console.log(payload.data)
-      // },
     })
-    // sub.unsubscribe()
   }
+
+  const acceptOrderHandler = () => {
+    setIncommingOrderChange(undefined)
+    navigation.navigate("start-order")
+    console.log('ORDER ACCEPTTED')
+  }
+
   useEffect(() => {
     activateOrder()
     return () => {
       subs.unsubscribe()
     }
   }, [])
-
+  console.log(incommingOrderChange?.store)
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -155,9 +148,14 @@ console.log(isUser.userId)
             />
           </View>
         )}
-        {/* {
-          incommingOrderChange &&  <IncomingOrder />
-        } */}
+        {incommingOrderChange !== undefined && (
+          <IncomingOrder
+            onReject={() => setIncommingOrderChange(undefined)}
+            onAccept={acceptOrderHandler}
+            storeName={incommingOrderChange?.store.storeName}
+            storeAddress={incommingOrderChange?.store.address}
+          />
+        )}
       </View>
     </SafeAreaView>
   )
@@ -179,7 +177,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.light.primaryRed,
   },
   openDrawer: {
-    // margin: 20,
     paddingTop: 20,
     paddingHorizontal: 10,
     width: '100%',
