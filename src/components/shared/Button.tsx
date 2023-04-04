@@ -2,16 +2,21 @@ import React from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 
 interface Props {
-  placeholder: string
+  placeholder: any
   bg: string
-  textColor: string
+  textColor?: string
   fontSize: number
-  width: any
+  width?: any
+  height: any
+  onPress?: (e: any) => void
+  disable?: boolean
 }
-function Button({ placeholder, bg, textColor, width, fontSize }: Props) {
+function Button({ placeholder, disable, bg, textColor, width, height, fontSize, onPress }: Props) {
   return (
     <Pressable
-      style={{ ...styles.container, backgroundColor: bg, width: width }}
+      disabled={disable}
+      onPress={onPress}
+      style={{ ...styles.container, backgroundColor: bg, width: width, height: height}}
     >
       <Text style={{ ...styles.placeholder, color: textColor, fontSize: fontSize }}>
         {placeholder}
@@ -24,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-        paddingVertical: 15,
+        // paddingVertical: 15,
     borderRadius: 100
   },
 

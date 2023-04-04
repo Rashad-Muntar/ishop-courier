@@ -16,15 +16,19 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 interface Props {
   placeholder: string
   icon: any
-  type: any
+  type?: any
+  value: any
+  onChangeText: any
 }
-const Input = ({ icon, placeholder, type }: Props) => {
+const Input = ({ icon, placeholder, value, onChangeText }: Props) => {
   return (
     <View style={styles.input}>
       {icon}
       <TextInput
         style={styles.field}
         placeholder={placeholder}
+        value={value}
+        onChangeText={onChangeText}
       />
     </View>
   )

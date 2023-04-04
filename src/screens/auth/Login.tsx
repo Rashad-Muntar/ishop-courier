@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Colors } from '../../components/shared/Constants'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { API, graphqlOperation } from 'aws-amplify'
+import { shopperLogin } from '../../graphql/mutations'
 import {
   View,
   Text,
@@ -12,26 +14,67 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
+  ActivityIndicator,
 } from 'react-native'
 import CheckInternet from '../../utility/CheckInternet'
 import Button from '../../components/shared/Button'
 import Input from '../../components/shared/InputText'
+import { loginAction } from '../../StateManagement/Store/Actions/auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 import InputPassword from '../../components/shared/InputPassword'
-const Login = () => {
+import { useFormik } from 'formik'
 
-    const handleNewAccount = async () => {
-        const url = 'https://ishop.formaloo.net/flo2j';
-        const supported = await Linking.canOpenURL(url);
-        if (supported) {
-          await Linking.openURL(url);
-        } else {
-          console.log(`Don't know how to open URL: ${url}`);
-        }
-      };
+const Login = () => {
+  // const [login, { data, loading }] = useShopperLoginMutation()
+  const [userData, setUserData] = useState()
+  const [loading, setLoading] = useState(false)
+  const isUser = useSelector((state) => state.auth)
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+
+  const handleNewAccount = async () => {
+    const url = 'https://ishop.formaloo.net/flo2j'
+    const supported = await Linking.canOpenURL(url)
+    if (supported) {
+      await Linking.openURL(url)
+    } else {
+      console.log(`Don't know how to open URL: ${url}`)
+    }
+  }
+
+  useEffect(() => {
+    const userId = userData?.shopper?.id
+    const authToken = userData?.token
+    dispatch(loginAction({ userId, authToken }))
+    if (isUser.authToken !== null && isUser.userId !== null) {
+      navigation.navigate('Go-online')
+    }
+  }, [userData])
+
+  const formik = useFormik({
+    initialValues: { email: '', password: '' },
+    onSubmit: async (values) => {
+      setLoading(true)
+      try {
+        const newUser = await API.graphql(
+          graphqlOperation(shopperLogin, {
+            email: values.email,
+            password: values.password
+          })
+        )
+        setUserData(newUser.data.shopperLogin)
+        setLoading(false)
+      } catch (error) {
+        console.log(error.message)
+      }
+    },
+  })
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.light.whiteText }}>
       <CheckInternet />
-          <KeyboardAvoidingView
+      <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.m}
       >
@@ -42,8 +85,10 @@ const Login = () => {
               <Text style={styles.login}>Login</Text>
               <View style={styles.form}>
                 <Input
-                  type="email-address"
+                  // type="email-address"
                   placeholder="Enter your email"
+                  value={formik.values.email}
+                  onChangeText={formik.handleChange('email')}
                   icon={
                     <MaterialCommunityIcons
                       name="email-outline"
@@ -52,15 +97,32 @@ const Login = () => {
                     />
                   }
                 />
-                <InputPassword />
+                <InputPassword
+                  value={formik.values.password}
+                  onChange={formik.handleChange('password')}
+                />
                 <Button
-                  bg={Colors.light.primary}
+                  disable={loading}
+                  bg={
+                    loading
+                      ? Colors.light.textPrimaryBlack100
+                      : Colors.light.primary
+                  }
                   width="50%"
-                  placeholder="Log in"
+                  placeholder={
+                    loading ? (
+                      <ActivityIndicator color={Colors.light.whiteText} />
+                    ) : (
+                      'Login'
+                    )
+                  }
                   textColor={Colors.light.whiteText}
                   fontSize={16}
+                  onPress={formik.handleSubmit}
+                  height={50}
                 />
               </View>
+
               <View style={styles.cta}>
                 <Text>You dont have account yet?</Text>
                 <Pressable onPress={handleNewAccount}>
@@ -128,8 +190,8 @@ const styles = StyleSheet.create({
   },
   createAccount: {
     color: Colors.light.primary,
-    fontWeight: '700',
-    fontSize: 18,
+    fontWeight: '500',
+    fontSize: 17,
     paddingVertical: 5,
   },
   field: {

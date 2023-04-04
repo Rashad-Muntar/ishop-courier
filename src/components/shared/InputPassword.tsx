@@ -3,9 +3,13 @@ import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons'
 import { Colors } from './Constants'
-const InputPassword = () => {
+interface Props {
+  value: string,
+  onChange: any
+}
+const InputPassword = ({value, onChange}:Props) => {
   const [showPassword, setShowPassword] = useState(false)
-  const [password, setPassword] = useState('')
+  // const [password, setPassword] = useState(value)
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword)
@@ -16,8 +20,8 @@ const InputPassword = () => {
       <TextInput
         style={styles.input}
         secureTextEntry={!showPassword}
-        value={password}
-        onChangeText={setPassword}
+        value={value}
+        onChangeText={onChange}
         placeholder="Password"
       />
       <TouchableOpacity

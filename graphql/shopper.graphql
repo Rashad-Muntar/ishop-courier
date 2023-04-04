@@ -1,0 +1,52 @@
+mutation ShoppeLocationUpdate($shoppeLocationUpdateId: ID!, $latitude: Float, $longitude: Float) {
+  shoppeLocationUpdate(id: $shoppeLocationUpdateId, latitude: $latitude, longitude: $longitude) {
+    shopper {
+      id
+      firstName
+      lastName
+      latitude
+      longitude
+    }
+  }
+}
+
+subscription OnUpdateCategory {
+  onUpdateCategory {
+    image
+    title
+  }
+}
+
+subscription OnShopperLocationUpdate {
+  onShopperLocationUpdate {
+    shopper {
+      id
+      avatar
+      email
+      password
+      firstName
+      lastName
+      deliveryOption
+      location
+      latitude
+      longitude
+      phone
+    }
+  }
+}
+
+query GetShopper($getShopperId: ID!) {
+  getShopper(id: $getShopperId) {
+    id
+    avatar
+    email
+    password
+    firstName
+    lastName
+    phone
+    deliveryOption
+    location
+    latitude
+    longitude
+  }
+}

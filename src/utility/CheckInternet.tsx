@@ -5,7 +5,6 @@ import Toast from 'react-native-toast-message'
 
 const CheckInternet = () => {
   const [isOffline, setOfflineStatus] = useState(false)
-  console.log(isOffline)
 
   useEffect(() => {
     Toast.show({

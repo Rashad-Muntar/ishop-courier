@@ -11,20 +11,68 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.truenile.ishop",
+      "config": {
+        "googleMaps": {
+          "googleMapsApiKey": "AIzaSyCp2OzPEltdcVV-E83hpjEkV3E1ns4JEIQ"
+        },
+        "permissions": [
+          "ACCESS_COARSE_LOCATOPM",
+          "ACCESS_FINE_LOCATION",
+          "FOREGROUND_SERVICE",
+          "microphone"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.truenile.ishop",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCp2OzPEltdcVV-E83hpjEkV3E1ns4JEIQ"
+        },
+        "permissions": [
+          "ACCESS_COARSE_LOCATOPM",
+          "ACCESS_FINE_LOCATION",
+          "FOREGROUND_SERVICE"
+        ]
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "notification": {
+      "icon": "./assets/adaptive-icon.png",
+      "color": "#C3F458"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/adaptive-icon.png",
+          "color": "#ffffff",
+          "sounds": []
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow iShop to use your location."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Ishop to access your camera."
+        }
+      ]
+    ]
   }
 }

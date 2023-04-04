@@ -120,11 +120,15 @@ export type CreateShopperInput = {
   avatar: Scalars['String'];
   deliveryOption?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
+  firstName: Scalars['String'];
   id?: InputMaybe<Scalars['ID']>;
+  lastName: Scalars['String'];
+  latitude?: InputMaybe<Scalars['Float']>;
   location?: InputMaybe<Scalars['String']>;
+  longitude?: InputMaybe<Scalars['Float']>;
+  online?: InputMaybe<Scalars['Boolean']>;
   password: Scalars['String'];
   phone?: InputMaybe<Scalars['String']>;
-  username: Scalars['String'];
 };
 
 export type CreateShopperIntentInput = {
@@ -450,12 +454,16 @@ export type ModelShopperConditionInput = {
   avatar?: InputMaybe<ModelStringInput>;
   deliveryOption?: InputMaybe<ModelStringInput>;
   email?: InputMaybe<ModelStringInput>;
+  firstName?: InputMaybe<ModelStringInput>;
+  lastName?: InputMaybe<ModelStringInput>;
+  latitude?: InputMaybe<ModelFloatInput>;
   location?: InputMaybe<ModelStringInput>;
+  longitude?: InputMaybe<ModelFloatInput>;
   not?: InputMaybe<ModelShopperConditionInput>;
+  online?: InputMaybe<ModelBooleanInput>;
   or?: InputMaybe<Array<InputMaybe<ModelShopperConditionInput>>>;
   password?: InputMaybe<ModelStringInput>;
   phone?: InputMaybe<ModelStringInput>;
-  username?: InputMaybe<ModelStringInput>;
 };
 
 export type ModelShopperConnection = {
@@ -470,13 +478,17 @@ export type ModelShopperFilterInput = {
   avatar?: InputMaybe<ModelStringInput>;
   deliveryOption?: InputMaybe<ModelStringInput>;
   email?: InputMaybe<ModelStringInput>;
+  firstName?: InputMaybe<ModelStringInput>;
   id?: InputMaybe<ModelIdInput>;
+  lastName?: InputMaybe<ModelStringInput>;
+  latitude?: InputMaybe<ModelFloatInput>;
   location?: InputMaybe<ModelStringInput>;
+  longitude?: InputMaybe<ModelFloatInput>;
   not?: InputMaybe<ModelShopperFilterInput>;
+  online?: InputMaybe<ModelBooleanInput>;
   or?: InputMaybe<Array<InputMaybe<ModelShopperFilterInput>>>;
   password?: InputMaybe<ModelStringInput>;
   phone?: InputMaybe<ModelStringInput>;
-  username?: InputMaybe<ModelStringInput>;
 };
 
 export type ModelShopperIntentConditionInput = {
@@ -690,12 +702,16 @@ export type ModelSubscriptionShopperFilterInput = {
   avatar?: InputMaybe<ModelSubscriptionStringInput>;
   deliveryOption?: InputMaybe<ModelSubscriptionStringInput>;
   email?: InputMaybe<ModelSubscriptionStringInput>;
+  firstName?: InputMaybe<ModelSubscriptionStringInput>;
   id?: InputMaybe<ModelSubscriptionIdInput>;
+  lastName?: InputMaybe<ModelSubscriptionStringInput>;
+  latitude?: InputMaybe<ModelSubscriptionFloatInput>;
   location?: InputMaybe<ModelSubscriptionStringInput>;
+  longitude?: InputMaybe<ModelSubscriptionFloatInput>;
+  online?: InputMaybe<ModelSubscriptionBooleanInput>;
   or?: InputMaybe<Array<InputMaybe<ModelSubscriptionShopperFilterInput>>>;
   password?: InputMaybe<ModelSubscriptionStringInput>;
   phone?: InputMaybe<ModelSubscriptionStringInput>;
-  username?: InputMaybe<ModelSubscriptionStringInput>;
 };
 
 export type ModelSubscriptionShopperIntentFilterInput = {
@@ -816,6 +832,7 @@ export type Mutation = {
   deleteVendorIntent?: Maybe<VendorIntent>;
   getVideoToken: Scalars['String'];
   phoneVerification?: Maybe<Scalars['String']>;
+  shoppeLocationUpdate: NewShopper;
   shopperLogin: NewShopper;
   shopperSignUp: NewShopper;
   storeLogin: NewStore;
@@ -958,6 +975,13 @@ export type MutationGetVideoTokenArgs = {
 
 export type MutationPhoneVerificationArgs = {
   phoneNumber: Scalars['String'];
+};
+
+
+export type MutationShoppeLocationUpdateArgs = {
+  id: Scalars['ID'];
+  latitude?: InputMaybe<Scalars['Float']>;
+  longitude?: InputMaybe<Scalars['Float']>;
 };
 
 
@@ -1366,13 +1390,17 @@ export type Shopper = {
   createdAt: Scalars['AWSDateTime'];
   deliveryOption?: Maybe<Scalars['String']>;
   email: Scalars['String'];
+  firstName: Scalars['String'];
   id: Scalars['ID'];
+  lastName: Scalars['String'];
+  latitude?: Maybe<Scalars['Float']>;
   location?: Maybe<Scalars['String']>;
+  longitude?: Maybe<Scalars['Float']>;
+  online?: Maybe<Scalars['Boolean']>;
   orders?: Maybe<ModelOrderConnection>;
   password: Scalars['String'];
   phone?: Maybe<Scalars['String']>;
   updatedAt: Scalars['AWSDateTime'];
-  username: Scalars['String'];
 };
 
 
@@ -1472,6 +1500,7 @@ export type Subscription = {
   onDeleteShopperIntent?: Maybe<ShopperIntent>;
   onDeleteStore?: Maybe<Store>;
   onDeleteVendorIntent?: Maybe<VendorIntent>;
+  onShopperLocationUpdate?: Maybe<NewShopper>;
   onUpdateCategory?: Maybe<Category>;
   onUpdateClient?: Maybe<Client>;
   onUpdateOrder?: Maybe<Order>;
@@ -1675,11 +1704,15 @@ export type UpdateShopperInput = {
   avatar?: InputMaybe<Scalars['String']>;
   deliveryOption?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
+  firstName?: InputMaybe<Scalars['String']>;
   id: Scalars['ID'];
+  lastName?: InputMaybe<Scalars['String']>;
+  latitude?: InputMaybe<Scalars['Float']>;
   location?: InputMaybe<Scalars['String']>;
+  longitude?: InputMaybe<Scalars['Float']>;
+  online?: InputMaybe<Scalars['Boolean']>;
   password?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['String']>;
-  username?: InputMaybe<Scalars['String']>;
 };
 
 export type UpdateShopperIntentInput = {
@@ -1745,20 +1778,24 @@ export type VendorIntent = {
 
 export type NewShoperPayload = {
   __typename?: 'newShoperPayload';
-  avatar: Scalars['String'];
-  deliveryOption: Scalars['String'];
-  email: Scalars['String'];
-  firstName: Scalars['String'];
+  avatar?: Maybe<Scalars['String']>;
+  deliveryOption?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  lastName: Scalars['String'];
-  location: Scalars['String'];
-  password: Scalars['String'];
+  lastName?: Maybe<Scalars['String']>;
+  latitude?: Maybe<Scalars['Float']>;
+  location?: Maybe<Scalars['String']>;
+  longitude?: Maybe<Scalars['Float']>;
+  password?: Maybe<Scalars['String']>;
   phone: Scalars['String'];
 };
 
 export type NewShopper = {
   __typename?: 'newShopper';
+  message?: Maybe<Scalars['String']>;
   shopper?: Maybe<NewShoperPayload>;
+  success?: Maybe<Scalars['Boolean']>;
   token?: Maybe<Scalars['String']>;
 };
 
@@ -1796,7 +1833,33 @@ export type ShopperLoginMutationVariables = Exact<{
 }>;
 
 
-export type ShopperLoginMutation = { __typename?: 'Mutation', shopperLogin: { __typename?: 'newShopper', token?: string | null, shopper?: { __typename?: 'newShoperPayload', id: string, avatar: string, email: string, password: string, firstName: string, lastName: string, deliveryOption: string, location: string, phone: string } | null } };
+export type ShopperLoginMutation = { __typename?: 'Mutation', shopperLogin: { __typename?: 'newShopper', token?: string | null, shopper?: { __typename?: 'newShoperPayload', id: string, avatar?: string | null, email?: string | null, password?: string | null, firstName?: string | null, lastName?: string | null, deliveryOption?: string | null, location?: string | null, phone: string } | null } };
+
+export type ShoppeLocationUpdateMutationVariables = Exact<{
+  shoppeLocationUpdateId: Scalars['ID'];
+  latitude?: InputMaybe<Scalars['Float']>;
+  longitude?: InputMaybe<Scalars['Float']>;
+}>;
+
+
+export type ShoppeLocationUpdateMutation = { __typename?: 'Mutation', shoppeLocationUpdate: { __typename?: 'newShopper', shopper?: { __typename?: 'newShoperPayload', id: string, firstName?: string | null, lastName?: string | null, latitude?: number | null, longitude?: number | null } | null } };
+
+export type OnUpdateCategorySubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OnUpdateCategorySubscription = { __typename?: 'Subscription', onUpdateCategory?: { __typename?: 'Category', image: string, title: string } | null };
+
+export type OnShopperLocationUpdateSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OnShopperLocationUpdateSubscription = { __typename?: 'Subscription', onShopperLocationUpdate?: { __typename?: 'newShopper', shopper?: { __typename?: 'newShoperPayload', id: string, avatar?: string | null, email?: string | null, password?: string | null, firstName?: string | null, lastName?: string | null, deliveryOption?: string | null, location?: string | null, latitude?: number | null, longitude?: number | null, phone: string } | null } | null };
+
+export type GetShopperQueryVariables = Exact<{
+  getShopperId: Scalars['ID'];
+}>;
+
+
+export type GetShopperQuery = { __typename?: 'Query', getShopper?: { __typename?: 'Shopper', id: string, avatar: string, email: string, password: string, firstName: string, lastName: string, phone?: string | null, deliveryOption?: string | null, location?: string | null, latitude?: number | null, longitude?: number | null } | null };
 
 
 export const ShopperLoginDocument = gql`
@@ -1844,3 +1907,164 @@ export function useShopperLoginMutation(baseOptions?: Apollo.MutationHookOptions
 export type ShopperLoginMutationHookResult = ReturnType<typeof useShopperLoginMutation>;
 export type ShopperLoginMutationResult = Apollo.MutationResult<ShopperLoginMutation>;
 export type ShopperLoginMutationOptions = Apollo.BaseMutationOptions<ShopperLoginMutation, ShopperLoginMutationVariables>;
+export const ShoppeLocationUpdateDocument = gql`
+    mutation ShoppeLocationUpdate($shoppeLocationUpdateId: ID!, $latitude: Float, $longitude: Float) {
+  shoppeLocationUpdate(
+    id: $shoppeLocationUpdateId
+    latitude: $latitude
+    longitude: $longitude
+  ) {
+    shopper {
+      id
+      firstName
+      lastName
+      latitude
+      longitude
+    }
+  }
+}
+    `;
+export type ShoppeLocationUpdateMutationFn = Apollo.MutationFunction<ShoppeLocationUpdateMutation, ShoppeLocationUpdateMutationVariables>;
+
+/**
+ * __useShoppeLocationUpdateMutation__
+ *
+ * To run a mutation, you first call `useShoppeLocationUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useShoppeLocationUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [shoppeLocationUpdateMutation, { data, loading, error }] = useShoppeLocationUpdateMutation({
+ *   variables: {
+ *      shoppeLocationUpdateId: // value for 'shoppeLocationUpdateId'
+ *      latitude: // value for 'latitude'
+ *      longitude: // value for 'longitude'
+ *   },
+ * });
+ */
+export function useShoppeLocationUpdateMutation(baseOptions?: Apollo.MutationHookOptions<ShoppeLocationUpdateMutation, ShoppeLocationUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ShoppeLocationUpdateMutation, ShoppeLocationUpdateMutationVariables>(ShoppeLocationUpdateDocument, options);
+      }
+export type ShoppeLocationUpdateMutationHookResult = ReturnType<typeof useShoppeLocationUpdateMutation>;
+export type ShoppeLocationUpdateMutationResult = Apollo.MutationResult<ShoppeLocationUpdateMutation>;
+export type ShoppeLocationUpdateMutationOptions = Apollo.BaseMutationOptions<ShoppeLocationUpdateMutation, ShoppeLocationUpdateMutationVariables>;
+export const OnUpdateCategoryDocument = gql`
+    subscription OnUpdateCategory {
+  onUpdateCategory {
+    image
+    title
+  }
+}
+    `;
+
+/**
+ * __useOnUpdateCategorySubscription__
+ *
+ * To run a query within a React component, call `useOnUpdateCategorySubscription` and pass it any options that fit your needs.
+ * When your component renders, `useOnUpdateCategorySubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOnUpdateCategorySubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useOnUpdateCategorySubscription(baseOptions?: Apollo.SubscriptionHookOptions<OnUpdateCategorySubscription, OnUpdateCategorySubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<OnUpdateCategorySubscription, OnUpdateCategorySubscriptionVariables>(OnUpdateCategoryDocument, options);
+      }
+export type OnUpdateCategorySubscriptionHookResult = ReturnType<typeof useOnUpdateCategorySubscription>;
+export type OnUpdateCategorySubscriptionResult = Apollo.SubscriptionResult<OnUpdateCategorySubscription>;
+export const OnShopperLocationUpdateDocument = gql`
+    subscription OnShopperLocationUpdate {
+  onShopperLocationUpdate {
+    shopper {
+      id
+      avatar
+      email
+      password
+      firstName
+      lastName
+      deliveryOption
+      location
+      latitude
+      longitude
+      phone
+    }
+  }
+}
+    `;
+
+/**
+ * __useOnShopperLocationUpdateSubscription__
+ *
+ * To run a query within a React component, call `useOnShopperLocationUpdateSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useOnShopperLocationUpdateSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOnShopperLocationUpdateSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useOnShopperLocationUpdateSubscription(baseOptions?: Apollo.SubscriptionHookOptions<OnShopperLocationUpdateSubscription, OnShopperLocationUpdateSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<OnShopperLocationUpdateSubscription, OnShopperLocationUpdateSubscriptionVariables>(OnShopperLocationUpdateDocument, options);
+      }
+export type OnShopperLocationUpdateSubscriptionHookResult = ReturnType<typeof useOnShopperLocationUpdateSubscription>;
+export type OnShopperLocationUpdateSubscriptionResult = Apollo.SubscriptionResult<OnShopperLocationUpdateSubscription>;
+export const GetShopperDocument = gql`
+    query GetShopper($getShopperId: ID!) {
+  getShopper(id: $getShopperId) {
+    id
+    avatar
+    email
+    password
+    firstName
+    lastName
+    phone
+    deliveryOption
+    location
+    latitude
+    longitude
+  }
+}
+    `;
+
+/**
+ * __useGetShopperQuery__
+ *
+ * To run a query within a React component, call `useGetShopperQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetShopperQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetShopperQuery({
+ *   variables: {
+ *      getShopperId: // value for 'getShopperId'
+ *   },
+ * });
+ */
+export function useGetShopperQuery(baseOptions: Apollo.QueryHookOptions<GetShopperQuery, GetShopperQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetShopperQuery, GetShopperQueryVariables>(GetShopperDocument, options);
+      }
+export function useGetShopperLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetShopperQuery, GetShopperQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetShopperQuery, GetShopperQueryVariables>(GetShopperDocument, options);
+        }
+export type GetShopperQueryHookResult = ReturnType<typeof useGetShopperQuery>;
+export type GetShopperLazyQueryHookResult = ReturnType<typeof useGetShopperLazyQuery>;
+export type GetShopperQueryResult = Apollo.QueryResult<GetShopperQuery, GetShopperQueryVariables>;
