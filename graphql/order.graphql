@@ -1,0 +1,28 @@
+mutation UpdateOrder($input: UpdateOrderInput!) {
+  updateOrder(input: $input) {
+    id
+    startTime
+    endTime
+    code
+    isCancel
+    isComplete
+    distance
+    isPicked
+    isDelivered
+    onGoing
+    isAccepted
+    shopperId
+    orderNote
+    isReject
+    store {
+      storeName
+      logo
+      address
+    }
+    client {
+      firstName
+      lastName
+      location
+    }
+  }
+}

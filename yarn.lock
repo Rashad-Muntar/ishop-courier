@@ -9684,10 +9684,9 @@ react-native-toast-message@^2.1.6:
   resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-2.1.6.tgz#322827c66901fa22cb3db614c7383cc717f5bbe2"
   integrity sha512-VctXuq20vmRa9AE13acaNZhrLcS3FaBS2zEevS3+vhBsnVZYG0FIlWIis9tVnpnNxUb3ART+BWtwQjzSttXTng==
 
-react-native-twilio-video-webrtc@^3.1.0:
+"react-native-twilio-video-webrtc@https://github.com/blackuy/react-native-twilio-video-webrtc":
   version "3.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-twilio-video-webrtc/-/react-native-twilio-video-webrtc-3.1.0.tgz#3f20f4084b4722847209bfe4096cf05283c3ed6c"
-  integrity sha512-NTJmzqjDLG2vQYyKezM708UNrDW9V27Q8Du4kKIGv7rLYDshbhHsih1w9uJ9i5ChxWdext3SFUt4eSjYNhBlFg==
+  resolved "https://github.com/blackuy/react-native-twilio-video-webrtc#9f74617d8ec3b076d7d4fec3428511f7aced8108"
   dependencies:
     prop-types "^15.5.10"
 

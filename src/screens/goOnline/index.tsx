@@ -17,8 +17,9 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { setLocation } from '../../StateManagement/Store/Actions/locationAction'
 import { useDispatch } from 'react-redux'
 import * as Location from 'expo-location'
+import { setOrder } from '../../StateManagement/Store/Actions/orderAction'
 import { onCreateOrder } from '../../graphql/subscriptions'
-
+import { useUpdateOrderMutation } from '../../generated/graphql'
 import { useSelector } from 'react-redux'
 import { Entypo } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
@@ -26,6 +27,7 @@ import { shoppeLocationUpdate } from '../../graphql/mutations'
 let subs
 function GoOnline() {
   const [loading, setLoading] = useState(false)
+  const [updateOrder, { data }] = useUpdateOrderMutation()
   const [onlineStatus, setonlineStatus] = useState(false)
   const [incommingOrderChange, setIncommingOrderChange] = useState()
   const dispatch = useDispatch()
@@ -61,7 +63,7 @@ function GoOnline() {
       console.log(error.message)
     }
   }
-  console.log(isUser.userId)
+
   const activateOrder = () => {
     subs = API.graphql(
       graphqlOperation(onCreateOrder, {
@@ -72,16 +74,59 @@ function GoOnline() {
         },
       })
     ).subscribe({
-      next: ({ provider, value }) => setIncommingOrderChange(value.data.onCreateOrder),
+      next: ({ provider, value }) =>
+        setIncommingOrderChange(value.data.onCreateOrder),
       error: (error) => console.warn(error),
     })
   }
 
-  const acceptOrderHandler = () => {
+  const acceptOrderHandler = async () => {
     setIncommingOrderChange(undefined)
-    navigation.navigate("start-order")
-    console.log('ORDER ACCEPTTED')
+    try {
+      await updateOrder({
+        variables: {
+          input: {
+            id: incommingOrderChange?.id,
+            isAccepted: true,
+          },
+        },
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  const rejectOrderHandler = async () => {
+    try {
+      await updateOrder({
+        variables: {
+          input: {
+            id: incommingOrderChange?.id,
+            isReject: true,
+          },
+        },
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    if (data !== undefined && data?.updateOrder?.isAccepted === true) {
+      dispatch(setOrder({ order: data.updateOrder }))
+      navigation.navigate('start-order')
+    } else if (data !== undefined && data?.updateOrder?.isReject === true) {
+      setIncommingOrderChange(undefined)
+    }
+  }, [data])
+
+  useEffect(() => {
+    if (incommingOrderChange !== undefined) {
+      setTimeout(() => {
+        setIncommingOrderChange(undefined)
+      }, 55000)
+    }
+  }, [incommingOrderChange])
 
   useEffect(() => {
     activateOrder()
@@ -89,7 +134,7 @@ function GoOnline() {
       subs.unsubscribe()
     }
   }, [])
-  console.log(incommingOrderChange?.store)
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -150,7 +195,7 @@ function GoOnline() {
         )}
         {incommingOrderChange !== undefined && (
           <IncomingOrder
-            onReject={() => setIncommingOrderChange(undefined)}
+            onReject={rejectOrderHandler}
             onAccept={acceptOrderHandler}
             storeName={incommingOrderChange?.store.storeName}
             storeAddress={incommingOrderChange?.store.address}

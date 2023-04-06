@@ -9,6 +9,7 @@ import {
   Dimensions,
   Alert,
 } from 'react-native'
+import { Colors } from './Constants'
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
 import * as Location from 'expo-location'
@@ -19,21 +20,24 @@ import { useSelector, useDispatch } from 'react-redux'
 
 interface Props {
   isOnline?: boolean
+  toPickupStart?: boolean
+  deliveryStart?: boolean
+  mapHeight: any
 }
-const MapScreen = ({isOnline}: Props) => {
+const MapScreen = ({ isOnline, deliveryStart, toPickupStart, mapHeight  }: Props) => {
   const dispatch = useDispatch()
   const { width, height } = Dimensions.get('window')
   const loc = useSelector((state) => state.location)
-  const [reload, setReload] = useState(false);
+  const [reload, setReload] = useState(false)
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 })
-  const [region, setRegion] = useState(null);
+  const [region, setRegion] = useState(null)
   const [errorMsg, setErrorMsg] = useState('')
   const mapRef = useRef(1)
 
   useEffect(() => {
     setReload(!reload)
   }, [loc])
-  
+
   useEffect(() => {
     ;(async () => {
       let { status } = await Location.requestForegroundPermissionsAsync()
@@ -43,15 +47,15 @@ const MapScreen = ({isOnline}: Props) => {
       }
 
       let location = await Location.getCurrentPositionAsync({})
-          setLocation({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        })
+      setLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      })
     })()
   }, [])
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, height: mapHeight }}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <KeyboardAvoidingView behavior="padding">
           <MapView
@@ -61,16 +65,62 @@ const MapScreen = ({isOnline}: Props) => {
             style={styles.map}
             provider={PROVIDER_GOOGLE}
             customMapStyle={mapStyle}
-            // zoomEnabled={true}
             showsUserLocation={true}
-            // toolbarEnabled={true}
             region={{
               latitude: isOnline ? location.latitude : 56.130367,
               longitude: isOnline ? location.longitude : -106.346771,
-              latitudeDelta: 0.006,
-              longitudeDelta: 0.006,
+              latitudeDelta: 0.020,
+              longitudeDelta: 0.020,
             }}
           >
+            {toPickupStart && (
+              <>
+                <Marker
+                  key={1}
+                  coordinate={{
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                  }}
+                  image={require('../../../assets/Solids/delivery.png')}
+                />
+                <Marker
+                  anchor={{ x: 0.5, y: 0.5 }}
+                  coordinate={storeToShop}
+                  image={require('../../../assets/Solids/store2.png')}
+                />
+                <MapViewDirections
+                  origin={location}
+                  destination={storeToShop}
+                  apikey="AIzaSyDsz1c179pD7OCWT_EmMs5cueUhMVve2gY"
+                  strokeWidth={4}
+                  optimizeWaypoints={true}
+                  strokeColor={Colors.light.primary}
+                  onReady={(result) => {
+                    // dispatch(setLocationDistance({distance: result.distance, duration: result.duration}))
+                    console.log(`Distance: ${result.distance} km`)
+                    console.log(`Duration: ${result.duration} min.`)
+
+                    mapRef.current.fitToCoordinates(result.coordinates, {
+                      edgePadding: {
+                        right: width / 20,
+                        bottom: height / 20,
+                        left: width / 20,
+                        top: height / 20,
+                      },
+                    })
+                  }}
+                  retryOptions={{
+                    attempts: 5,
+                    delay: 1000,
+                    retryOnTimeout: true,
+                    retryOnConnectionLost: true,
+                  }}
+                  onError={(errorMessage) => {
+                    console.log(errorMessage)
+                  }}
+                />
+              </>
+            )}
             {/* {carsAround.map((car, index) => (
               <Marker
                 key={index}
@@ -127,7 +177,7 @@ const MapScreen = ({isOnline}: Props) => {
 }
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    // height: '100%',
     backgroundColor: 'grey',
     width: '100%',
   },

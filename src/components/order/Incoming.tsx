@@ -7,7 +7,8 @@ import FindDriverProgress from '../shared/FindProgress'
 
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 import { color } from '@rneui/base'
-import DeliveryInfo from './deliveryInfo'
+// import DeliveryInfo from './deliveryInfo'
+import DeliveryInfo from './DeliveryInfo'
 import StoreInfo from './StoreInfo'
 
 interface Props {
@@ -49,7 +50,7 @@ const IncomingOrder = ({
             size={150}
             width={15}
             fill={102}
-            duration={90000}
+            duration={60000}
             tintColor={Colors.light.primaryRed100}
             onAnimationComplete={() => console.log('onAnimationComplete')}
             backgroundColor={Colors.light.primary50}

@@ -103,18 +103,40 @@ export const onCreateOrder = /* GraphQL */ `
         avatar
         firstName
         lastName
+        email
+        password
         phone
+        deliveryOption
+        isOnline
         location
         latitude
         longitude
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       store {
+        id
+        email
+        password
         storeName
         address
         latitude
         longitude
         phone
+        outletType
+        branches
+        headerImg
         logo
+        verified
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        categoryStoresId
       }
       client {
         id
@@ -124,11 +146,21 @@ export const onCreateOrder = /* GraphQL */ `
         password
         phone
         location
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       products {
         nextToken
+        startedAt
       }
-
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       shopperOrdersId
       clientOrdersId
       storeOrdersId

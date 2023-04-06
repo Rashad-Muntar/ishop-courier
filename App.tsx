@@ -7,19 +7,19 @@ import { StyleSheet, View } from 'react-native'
 import { ApolloProvider } from '@apollo/client'
 import { Amplify } from 'aws-amplify'
 import awsmobile from "./src/aws-exports"
-// import Client from './src/lib/client'
+import useClient from './src/lib/client'
 Amplify.configure(awsmobile)
 export default function App() {
-  // const client = useClient()
+  const client = useClient()
   return (
     <View style={styles.container}>
       <Provider store={store}>
-        {/* <ApolloProvider client={Client}> */}
+        <ApolloProvider client={client}>
           <StatusBar style="auto" />
           <NavigationContainer>
             <MainNavigation />
           </NavigationContainer>
-        {/* </ApolloProvider> */}
+        </ApolloProvider>
       </Provider>
     </View>
   )
