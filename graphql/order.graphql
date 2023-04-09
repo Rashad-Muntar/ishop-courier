@@ -11,6 +11,7 @@ mutation UpdateOrder($input: UpdateOrderInput!) {
     isDelivered
     onGoing
     isAccepted
+    clientId
     shopperId
     orderNote
     isReject

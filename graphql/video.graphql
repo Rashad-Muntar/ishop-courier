@@ -1,0 +1,3 @@
+mutation GetVideoToken($userName: String!) {
+  getVideoToken(userName: $userName)
+}

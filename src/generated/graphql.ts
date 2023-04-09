@@ -1780,7 +1780,7 @@ export type UpdateOrderMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOrderMutation = { __typename?: 'Mutation', updateOrder?: { __typename?: 'Order', id: string, startTime: string, endTime?: string | null, code?: number | null, isCancel?: boolean | null, isComplete?: boolean | null, distance?: string | null, isPicked?: boolean | null, isDelivered?: boolean | null, onGoing?: boolean | null, isAccepted?: boolean | null, shopperId?: string | null, orderNote: string, isReject?: boolean | null, store?: { __typename?: 'Store', storeName?: string | null, logo?: string | null, address: string } | null, client?: { __typename?: 'Client', firstName?: string | null, lastName?: string | null, location?: string | null } | null } | null };
+export type UpdateOrderMutation = { __typename?: 'Mutation', updateOrder?: { __typename?: 'Order', id: string, startTime: string, endTime?: string | null, code?: number | null, isCancel?: boolean | null, isComplete?: boolean | null, distance?: string | null, isPicked?: boolean | null, isDelivered?: boolean | null, onGoing?: boolean | null, isAccepted?: boolean | null, clientId?: string | null, shopperId?: string | null, orderNote: string, isReject?: boolean | null, store?: { __typename?: 'Store', storeName?: string | null, logo?: string | null, address: string } | null, client?: { __typename?: 'Client', firstName?: string | null, lastName?: string | null, location?: string | null } | null } | null };
 
 export type ShoppeLocationUpdateMutationVariables = Exact<{
   shoppeLocationUpdateId: Scalars['ID'];
@@ -1807,6 +1807,13 @@ export type GetShopperQueryVariables = Exact<{
 
 
 export type GetShopperQuery = { __typename?: 'Query', getShopper?: { __typename?: 'Shopper', id: string, avatar: string, email: string, password: string, firstName: string, lastName: string, phone?: string | null, deliveryOption?: string | null, location?: string | null, latitude?: number | null, longitude?: number | null } | null };
+
+export type GetVideoTokenMutationVariables = Exact<{
+  userName: Scalars['String'];
+}>;
+
+
+export type GetVideoTokenMutation = { __typename?: 'Mutation', getVideoToken: string };
 
 
 export const ShopperLoginDocument = gql`
@@ -1868,6 +1875,7 @@ export const UpdateOrderDocument = gql`
     isDelivered
     onGoing
     isAccepted
+    clientId
     shopperId
     orderNote
     isReject
@@ -2071,3 +2079,34 @@ export function useGetShopperLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetShopperQueryHookResult = ReturnType<typeof useGetShopperQuery>;
 export type GetShopperLazyQueryHookResult = ReturnType<typeof useGetShopperLazyQuery>;
 export type GetShopperQueryResult = Apollo.QueryResult<GetShopperQuery, GetShopperQueryVariables>;
+export const GetVideoTokenDocument = gql`
+    mutation GetVideoToken($userName: String!) {
+  getVideoToken(userName: $userName)
+}
+    `;
+export type GetVideoTokenMutationFn = Apollo.MutationFunction<GetVideoTokenMutation, GetVideoTokenMutationVariables>;
+
+/**
+ * __useGetVideoTokenMutation__
+ *
+ * To run a mutation, you first call `useGetVideoTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useGetVideoTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [getVideoTokenMutation, { data, loading, error }] = useGetVideoTokenMutation({
+ *   variables: {
+ *      userName: // value for 'userName'
+ *   },
+ * });
+ */
+export function useGetVideoTokenMutation(baseOptions?: Apollo.MutationHookOptions<GetVideoTokenMutation, GetVideoTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<GetVideoTokenMutation, GetVideoTokenMutationVariables>(GetVideoTokenDocument, options);
+      }
+export type GetVideoTokenMutationHookResult = ReturnType<typeof useGetVideoTokenMutation>;
+export type GetVideoTokenMutationResult = Apollo.MutationResult<GetVideoTokenMutation>;
+export type GetVideoTokenMutationOptions = Apollo.BaseMutationOptions<GetVideoTokenMutation, GetVideoTokenMutationVariables>;

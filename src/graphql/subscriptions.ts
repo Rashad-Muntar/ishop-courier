@@ -24,7 +24,7 @@ export const onShopperLocationUpdate = /* GraphQL */ `
       message
     }
   }
-`;
+`
 export const onCreateCategory = /* GraphQL */ `
   subscription OnCreateCategory($filter: ModelSubscriptionCategoryFilterInput) {
     onCreateCategory(filter: $filter) {
@@ -42,7 +42,7 @@ export const onCreateCategory = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onUpdateCategory = /* GraphQL */ `
   subscription OnUpdateCategory($filter: ModelSubscriptionCategoryFilterInput) {
     onUpdateCategory(filter: $filter) {
@@ -60,7 +60,7 @@ export const onUpdateCategory = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onDeleteCategory = /* GraphQL */ `
   subscription OnDeleteCategory($filter: ModelSubscriptionCategoryFilterInput) {
     onDeleteCategory(filter: $filter) {
@@ -78,7 +78,7 @@ export const onDeleteCategory = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onCreateOrder = /* GraphQL */ `
   subscription OnCreateOrder($filter: ModelSubscriptionOrderFilterInput) {
     onCreateOrder(filter: $filter) {
@@ -98,16 +98,6 @@ export const onCreateOrder = /* GraphQL */ `
       clientId
       storeId
       orderNote
-      shopper {
-        id
-        avatar
-        firstName
-        lastName
-        phone
-        location
-        latitude
-        longitude
-      }
       store {
         storeName
         address
@@ -116,25 +106,9 @@ export const onCreateOrder = /* GraphQL */ `
         phone
         logo
       }
-      client {
-        id
-        firstName
-        lastName
-        email
-        password
-        phone
-        location
-      }
-      products {
-        nextToken
-      }
-
-      shopperOrdersId
-      clientOrdersId
-      storeOrdersId
     }
   }
-`;
+`
 export const onUpdateOrder = /* GraphQL */ `
   subscription OnUpdateOrder($filter: ModelSubscriptionOrderFilterInput) {
     onUpdateOrder(filter: $filter) {
@@ -222,7 +196,7 @@ export const onUpdateOrder = /* GraphQL */ `
       storeOrdersId
     }
   }
-`;
+`
 export const onDeleteOrder = /* GraphQL */ `
   subscription OnDeleteOrder($filter: ModelSubscriptionOrderFilterInput) {
     onDeleteOrder(filter: $filter) {
@@ -310,7 +284,7 @@ export const onDeleteOrder = /* GraphQL */ `
       storeOrdersId
     }
   }
-`;
+`
 export const onCreateShopper = /* GraphQL */ `
   subscription OnCreateShopper($filter: ModelSubscriptionShopperFilterInput) {
     onCreateShopper(filter: $filter) {
@@ -337,7 +311,7 @@ export const onCreateShopper = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onUpdateShopper = /* GraphQL */ `
   subscription OnUpdateShopper($filter: ModelSubscriptionShopperFilterInput) {
     onUpdateShopper(filter: $filter) {
@@ -364,7 +338,7 @@ export const onUpdateShopper = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onDeleteShopper = /* GraphQL */ `
   subscription OnDeleteShopper($filter: ModelSubscriptionShopperFilterInput) {
     onDeleteShopper(filter: $filter) {
@@ -391,7 +365,7 @@ export const onDeleteShopper = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onCreateClient = /* GraphQL */ `
   subscription OnCreateClient($filter: ModelSubscriptionClientFilterInput) {
     onCreateClient(filter: $filter) {
@@ -413,7 +387,7 @@ export const onCreateClient = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onUpdateClient = /* GraphQL */ `
   subscription OnUpdateClient($filter: ModelSubscriptionClientFilterInput) {
     onUpdateClient(filter: $filter) {
@@ -435,7 +409,7 @@ export const onUpdateClient = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onDeleteClient = /* GraphQL */ `
   subscription OnDeleteClient($filter: ModelSubscriptionClientFilterInput) {
     onDeleteClient(filter: $filter) {
@@ -457,7 +431,7 @@ export const onDeleteClient = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onCreateStore = /* GraphQL */ `
   subscription OnCreateStore($filter: ModelSubscriptionStoreFilterInput) {
     onCreateStore(filter: $filter) {
@@ -500,7 +474,7 @@ export const onCreateStore = /* GraphQL */ `
       categoryStoresId
     }
   }
-`;
+`
 export const onUpdateStore = /* GraphQL */ `
   subscription OnUpdateStore($filter: ModelSubscriptionStoreFilterInput) {
     onUpdateStore(filter: $filter) {
@@ -543,7 +517,7 @@ export const onUpdateStore = /* GraphQL */ `
       categoryStoresId
     }
   }
-`;
+`
 export const onDeleteStore = /* GraphQL */ `
   subscription OnDeleteStore($filter: ModelSubscriptionStoreFilterInput) {
     onDeleteStore(filter: $filter) {
@@ -586,7 +560,7 @@ export const onDeleteStore = /* GraphQL */ `
       categoryStoresId
     }
   }
-`;
+`
 export const onCreateProductCategory = /* GraphQL */ `
   subscription OnCreateProductCategory(
     $filter: ModelSubscriptionProductCategoryFilterInput
@@ -628,7 +602,7 @@ export const onCreateProductCategory = /* GraphQL */ `
       storeProductCategoriesId
     }
   }
-`;
+`
 export const onUpdateProductCategory = /* GraphQL */ `
   subscription OnUpdateProductCategory(
     $filter: ModelSubscriptionProductCategoryFilterInput
@@ -670,7 +644,7 @@ export const onUpdateProductCategory = /* GraphQL */ `
       storeProductCategoriesId
     }
   }
-`;
+`
 export const onDeleteProductCategory = /* GraphQL */ `
   subscription OnDeleteProductCategory(
     $filter: ModelSubscriptionProductCategoryFilterInput
@@ -712,7 +686,7 @@ export const onDeleteProductCategory = /* GraphQL */ `
       storeProductCategoriesId
     }
   }
-`;
+`
 export const onCreateProduct = /* GraphQL */ `
   subscription OnCreateProduct($filter: ModelSubscriptionProductFilterInput) {
     onCreateProduct(filter: $filter) {
@@ -750,7 +724,7 @@ export const onCreateProduct = /* GraphQL */ `
       productCategoryProductsId
     }
   }
-`;
+`
 export const onUpdateProduct = /* GraphQL */ `
   subscription OnUpdateProduct($filter: ModelSubscriptionProductFilterInput) {
     onUpdateProduct(filter: $filter) {
@@ -788,7 +762,7 @@ export const onUpdateProduct = /* GraphQL */ `
       productCategoryProductsId
     }
   }
-`;
+`
 export const onDeleteProduct = /* GraphQL */ `
   subscription OnDeleteProduct($filter: ModelSubscriptionProductFilterInput) {
     onDeleteProduct(filter: $filter) {
@@ -826,7 +800,7 @@ export const onDeleteProduct = /* GraphQL */ `
       productCategoryProductsId
     }
   }
-`;
+`
 export const onCreateProductOrder = /* GraphQL */ `
   subscription OnCreateProductOrder(
     $filter: ModelSubscriptionProductOrderFilterInput
@@ -887,7 +861,7 @@ export const onCreateProductOrder = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onUpdateProductOrder = /* GraphQL */ `
   subscription OnUpdateProductOrder(
     $filter: ModelSubscriptionProductOrderFilterInput
@@ -948,7 +922,7 @@ export const onUpdateProductOrder = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`
 export const onDeleteProductOrder = /* GraphQL */ `
   subscription OnDeleteProductOrder(
     $filter: ModelSubscriptionProductOrderFilterInput
@@ -1009,4 +983,4 @@ export const onDeleteProductOrder = /* GraphQL */ `
       _lastChangedAt
     }
   }
-`;
+`

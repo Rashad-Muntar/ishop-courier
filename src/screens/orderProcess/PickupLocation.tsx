@@ -37,7 +37,7 @@ const PickupLocation = () => {
   }
 
   const startVideoCallHandler = () => {
-    navigation.navigate("VideoCall")
+    navigation.navigate("videoCall")
   }
 
   return (
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   timerWrap: {
-    backgroundColor: Colors.light.primary50,
+    backgroundColor: Colors.light.primaryBlue100,
     borderRadius: 10,
     padding: 20,
     justifyContent: 'center',
@@ -132,7 +132,8 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 17,
     marginLeft: 10,
-    color: Colors.light.textPrimaryBlack100,
+    color: Colors.light.primaryBlue,
+    fontWeight: "600"
   },
   orderDetail: {
     alignItems: 'center',

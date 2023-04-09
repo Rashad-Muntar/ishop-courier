@@ -75,7 +75,7 @@ function GoOnline() {
       })
     ).subscribe({
       next: ({ provider, value }) =>
-        setIncommingOrderChange(value.data.onCreateOrder),
+        setIncommingOrderChange(value?.data?.onCreateOrder),
       error: (error) => console.warn(error),
     })
   }
@@ -95,6 +95,7 @@ function GoOnline() {
       console.log(error)
     }
   }
+  console.log(incommingOrderChange)
 
   const rejectOrderHandler = async () => {
     try {
